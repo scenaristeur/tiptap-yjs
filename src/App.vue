@@ -1,10 +1,26 @@
 <template>
+  <div>
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
   <router-view/>
+  <OrbitManage />
+</div>
 </template>
+
+<script>
+// @ is an alias to /src
+import OrbitManage from '@/views/OrbitManage.vue'
+
+export default {
+  name: 'HomeView',
+  components: {
+    OrbitManage
+  }
+}
+</script>
+
 
 <style>
 #app {

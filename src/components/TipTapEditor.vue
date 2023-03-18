@@ -19,7 +19,7 @@
       </div>
     </div>
   </template>
-  
+
   <script>
   import { HocuspocusProvider } from '@hocuspocus/provider'
   import CharacterCount from '@tiptap/extension-character-count'
@@ -93,6 +93,7 @@
         ],
       })
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+      console.log(this.provider)
     },
     methods: {
       setName() {
