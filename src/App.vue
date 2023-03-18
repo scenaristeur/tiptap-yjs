@@ -5,18 +5,18 @@
     <router-link to="/about">About</router-link>
   </nav>
   <router-view/>
-  <OrbitManage />
+ <!-- <OrbitManage /> -->
 </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import OrbitManage from '@/views/OrbitManage.vue'
+//import OrbitManage from '@/views/OrbitManage.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    OrbitManage
+    //OrbitManage
   }
 }
 </script>
