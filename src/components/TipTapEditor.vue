@@ -44,7 +44,7 @@ const getRandomElement = list => {
 }
 const getRandomRoom = () => {
   // const roomNumbers = variables.collabRooms?.trim()?.split(',') ?? [10, 11, 12]
-  const roomNumbers = [61 /*10, 11, 12*/]
+  const roomNumbers = [...Array(99).keys()] // [61 /*10, 11, 12*/]
   return getRandomElement(roomNumbers.map(number => `rooms.${number}`))
 }
 export default {
@@ -62,7 +62,7 @@ export default {
       provider: null,
       editor: null,
       status: 'connecting',
-      room: getRandomRoom(),
+      room: JSON.parse(localStorage.getItem('currentRoom')) || getRandomRoom(),
     }
   },
   mounted() {
@@ -81,7 +81,6 @@ export default {
       })
       this.provider.on('status', event => {
         this.status = event.status
-
       })
 
       this.editor = new Editor({
@@ -105,16 +104,14 @@ export default {
         ],
       })
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
-      console.log(this.provider)
-      this.editor.on('create', event => {
-        //this.editor.commands.clearContent()
+      localStorage.setItem('currentRoom', JSON.stringify(this.room))
+      //console.log(this.provider)
+/*       this.editor.on('create', event => {
         console.log(event)
-
       })
       this.editor.on('update', event => {
         console.log(event)
-
-      })
+      }) */
     },
     setName() {
       const name = (window.prompt('Name') || '')
@@ -127,7 +124,7 @@ export default {
       }
     },
     setRoom() {
-      const room = (window.prompt('Room') || '')
+      const room = (window.prompt('Choose a Room from 0 to 99') || '')
         .trim()
         .substring(0, 32)
       if (room) {
@@ -143,16 +140,11 @@ export default {
     },
     updateCurrentRoom(attributes) {
       console.log(attributes)
-      this.room = "rooms."+attributes.room //this.room == "rooms.61" ? "rooms.10" : "rooms.61" //{ ...this.room, ...attributes }
-      //this.editor.commands.clearContent()
+      this.room = "rooms."+attributes.room
+     
       this.editor.destroy()
       this.provider.destroy()
       this.createEditor()
-      /*     this.editor.chain().focus().updateRoom(this.room).run()
-          localStorage.setItem('room', JSON.stringify(this.room)) */
-      /*this.currentUser = { ...this.currentUser, ...attributes }
-      this.editor.chain().focus().updateUser(this.currentUser).run()
-      localStorage.setItem('currentUser', JSON.stringify(this.currentUser))*/
     },
     getRandomColor() {
       return getRandomElement([
