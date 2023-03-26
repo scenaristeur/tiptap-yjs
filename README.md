@@ -1,5 +1,12 @@
 # noosphere3
 
+# custom hocuspocus-server 
+remix your own hocuspocus / ws server at https://glitch.com/edit/#!/hocus-noosphere
+
+or run local server https://tiptap.dev/hocuspocus/installation
+or https://tiptap.dev/hocuspocus/installation/cli with `npx @hocuspocus/cli --port 8080`
+
+
 ### install ipfs on windows
 
 ```
