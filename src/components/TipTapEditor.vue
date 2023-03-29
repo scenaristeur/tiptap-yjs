@@ -103,15 +103,22 @@ export default {
           }),
         ],
       })
+
+      this.editor.on('update', ({ editor }) => {
+        console.log(editor.getJSON())
+        let step = {room: this.room, data: editor.getJSON(), type: 'tiptap'}
+        this.$store.dispatch('push', step)
+        // The content has changed.
+      })
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
       localStorage.setItem('currentRoom', JSON.stringify(this.room))
       //console.log(this.provider)
-/*       this.editor.on('create', event => {
-        console.log(event)
-      })
-      this.editor.on('update', event => {
-        console.log(event)
-      }) */
+      /*       this.editor.on('create', event => {
+              console.log(event)
+            })
+            this.editor.on('update', event => {
+              console.log(event)
+            }) */
     },
     setName() {
       const name = (window.prompt('Name') || '')
@@ -140,8 +147,8 @@ export default {
     },
     updateCurrentRoom(attributes) {
       console.log(attributes)
-      this.room = "rooms."+attributes.room
-     
+      this.room = "rooms." + attributes.room
+
       this.editor.destroy()
       this.provider.destroy()
       this.createEditor()

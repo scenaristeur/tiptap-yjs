@@ -5,18 +5,19 @@
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
   </nav>
+  <IpfsInfo />
  <!-- <OrbitManage /> -->
 </div>
 </template>
 
 <script>
 // @ is an alias to /src
-//import OrbitManage from '@/views/OrbitManage.vue'
+import IpfsInfo from '@/components/IpfsInfo.vue'
 
 export default {
   name: 'HomeView',
   components: {
-    //OrbitManage
+    IpfsInfo
   }
 }
 </script>
