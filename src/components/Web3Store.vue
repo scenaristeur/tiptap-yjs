@@ -1,4 +1,4 @@
-<template lang="">
+<template>
            <span id="web3" v-if="step != null">
           <button @click="get_token">💾 web3</button> 
           <span>
@@ -109,8 +109,3 @@ export default {
     }
 }
 </script>
-<style >
-#web3 {
-    /*color: rgb(197, 8, 8) */
-}
-</style>
