@@ -104,6 +104,12 @@ export default {
         ],
       })
 
+      this.editor.on('create', ({ editor }) => {
+        console.log(editor.getJSON())
+        let step = {room: this.room, data: editor.getJSON(), type: 'tiptap'}
+        this.$store.dispatch('push', step)
+        // The content has changed.
+      })
       this.editor.on('update', ({ editor }) => {
         console.log(editor.getJSON())
         let step = {room: this.room, data: editor.getJSON(), type: 'tiptap'}
