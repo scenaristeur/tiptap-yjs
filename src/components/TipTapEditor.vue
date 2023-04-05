@@ -18,12 +18,13 @@
           offline
         </template>
       </div>
-      <ShareModal />
+      
       <div class="editor__name">
         <button @click="setName">
           {{ currentUser.name }}
         </button>
       </div>
+      <ShareModal />
     </div>
   </div>
 </template>
