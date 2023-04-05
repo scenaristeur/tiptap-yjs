@@ -1,62 +1,50 @@
 <template>
     <div>
-        <!-- <van-button type="primary">Primary</van-button> -->
-        <van-cell title="Share" is-link @click="showPopup" />
-        <van-popup v-model:show="show" :style="{ padding: '14px' }">
-            <div>
-            <h2>{{ room }}</h2>
-             <hr>
-            The url of this room has been copied<br> to your clipboard,<br> you can paste it with <b>Ctrl+v</b><br> in any other app to
-            share it !
-        </div>
+        <van-cell is-link @click="showPopup">
 
+            <VanIcon name="share-o" size="1.5rem" color="#1989fa" />
+        </van-cell>
+
+        <van-popup v-model:show="show" :style="{ padding: '14px' }" closeable round @click-overlay="stopScanner"
+            @click-close-icon="stopScanner">
+            <div>
+                <h2>{{ room }}</h2>
+                <hr>
+                The url of this room has been copied<br> to your clipboard,<br> you can paste it with <b>Ctrl+v</b><br> in
+                any other app to
+                share it !
+            </div>
 
             <div id="printable">
-                <!-- Let's talk about <b><u>{{user.roomID}}</u></b> at : <br>
-              Discutons de <b><u>{{user.roomID}}</u></b> à l'adresse :
-              <hr> -->
-
-                <!-- <hr> -->
-                <!-- <center> -->
                 <img :src="QRsrc" width="300" />
                 <hr>
-
-                <!-- {{this.url}} <br>or<br> -->
-                <!-- <h3 style="width:100%">{{ encodeURI(this.url) }}</h3>
-                <hr> -->
-                <!-- </center> -->
-
-
             </div>
-            <VanButton @click="print('fr')" type="primary">imprime QR</VanButton>
-            <VanButton @click="print('en')" type="primary">print QR</VanButton>
+            <VanButton @click="scan()" type="primary">Scan QR</VanButton>
+            <VanButton @click="print('fr')" type="primary">Imprime QR</VanButton>
+            <VanButton @click="print('en')" type="primary">Print QR</VanButton>
             <br>
-
-
-
+            <div ref="camera" id="camera"></div>
         </van-popup>
-
-
-
     </div>
 </template>
 
 <script>
 
 import QRCode from 'qrcode'
-import { Popup, Cell, Button } from 'vant';
+import { Html5Qrcode } from "html5-qrcode"
+import { Popup, Cell, Button, Icon } from 'vant';
 export default {
     name: 'ShareModal',
     components: {
         VanButton: Button,
         VanPopup: Popup,
         VanCell: Cell,
+        VanIcon: Icon
 
     },
     data() {
         return {
             show: false,
-
             QRsrc: null,
             url: null
         }
@@ -80,64 +68,28 @@ export default {
                 if (navigator.canShare({ files: filesArray })) {
                     share.files = filesArray
                 }
-
-
                 window.navigator
                     .share(share)
                     .then(() => console.log('Successful share'))
                     .catch(error => console.log('Error sharing', error));
             }
-            // else {
-
-            // let app = this
-            // console.log(this.localUser)
 
             navigator.clipboard.writeText(this.url).then(function () {
                 console.log('Async: Copying to clipboard was successful!');
-                //  app.showAlert()
             }, function (err) {
                 console.error('Async: Could not copy text: ', err);
             });
-
-            // }
             await this.generateQR()
 
         },
         async generateQR() {
-            // if (this.QRsrc == null){
             this.url = 'https://scenaristeur.github.io/tiptap-yjs/?room=' + this.room
             this.QRsrc = await QRCode.toDataURL(encodeURI(this.url), { color: { light: '#98faf5' } })
-            // }else{
-            //   this.QRsrc = null
-            // }
-
-        },
-        // countDownChanged(dismissCountDown) {
-        //   this.dismissCountDown = dismissCountDown
-        // },
-        // showAlert() {
-        //   this.dismissCountDown = this.dismissSecs
-        // },
-        download() {
-            console.log('todo')
-        },
-        print1() {
-            let divName = 'printable'
-            var printContents = document.getElementById(divName).innerHTML;
-            var originalContents = document.body.innerHTML;
-
-            document.body.innerHTML = printContents;
-
-            window.print();
-
-            document.body.innerHTML = originalContents;
         },
         print(lang) {
             let annonce = { fr: "Parlons de :<br>", en: "Let's talk about :<br>" }
             let text = { en: "Share & grab ideas !", fr: "Attrape des idées et partage les tiennes !" }
             let title = "NOOSPHERE"
-
-
             let divName = 'printable'
             var mywindow = window.open('', 'PRINT', 'height=400,width=600');
 
@@ -151,12 +103,55 @@ export default {
 
             //  mywindow.document.close(); // necessary for IE >= 10
             mywindow.focus(); // necessary for IE >= 10*/
-
             mywindow.print();
-            //mywindow.close();
+        },
 
-            //return true;
-        }
+        scan() {
+            if (this.scanner != undefined && this.scanner.isScanning) {
+                this.stopScanner()
+                return
+            }
+            let app = this
+            this.scanner = new Html5Qrcode('camera')
+            console.log('starting camera...')
+            const cameraOptions = { facingMode: 'environment' }
+            const config = { fps: 10, qrbox: { width: 200, height: 200 } };
+
+            this.scanner.start(cameraOptions, config, function (text) {
+                console.log(Date.now(), 'decoded', text)
+                let eq_splitted = text.split('=')
+                if (eq_splitted[0] == 'https://scenaristeur.github.io/tiptap-yjs/?room') {
+                    app.$store.commit('setRoom', eq_splitted[1])
+                    app.stopScanner()
+                }
+            })
+
+                .then(function () {
+                    console.log(Date.now(), 'camera started')
+                })
+                .catch(function (err) {
+                    console.log(Date.now(), 'error starting camera', err)
+                })
+        },
+        stopScanner() {
+            if (this.scanner != undefined && this.scanner.isScanning) {
+            let app = this
+            this.scanner.stop()
+                .then(function () {
+                    app.$refs.camera.innerHTML = ""
+                    console.log('camera stopped')
+                    app.scanner.clear()
+                    console.log("scan cleared")
+                    app.show = false
+                    // console.log("scanner", app.scanner)
+
+                })
+                .catch(function (err) {
+                    console.log('error stopping camera', err)
+                })
+            }
+        },
+
     },
     computed: {
         room() {

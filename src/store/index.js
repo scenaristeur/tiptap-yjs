@@ -13,6 +13,7 @@ export default createStore({
     },
     setRoom(state,r){
       state.room = r
+      console.log(state.room)
     }
   },
   actions: {

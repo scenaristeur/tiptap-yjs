@@ -18,7 +18,7 @@
           offline
         </template>
       </div>
-      
+
       <div class="editor__name">
         <button @click="setName">
           {{ currentUser.name }}
@@ -172,7 +172,7 @@ export default {
     },
     updateCurrentRoom(attributes) {
       console.log(attributes)
-      this.room = "rooms." + attributes.room
+      this.room = attributes.room.startsWith("rooms.") ? attributes.room :  "rooms." + attributes.room
 
       this.editor.destroy()
       this.provider.destroy()
@@ -199,6 +199,21 @@ export default {
     this.editor.destroy()
     this.provider.destroy()
   },
+  watch: {
+    roomFromSomewhere() {
+      let room = this.roomFromSomewhere
+      console.log(room)
+     // if (room.rooms) this.updateCurrentRoom({room})
+     this.updateCurrentRoom({
+          room,
+        })
+    }
+  },
+  computed: {
+    roomFromSomewhere() {
+      return this.$store.state.room
+    }
+  }
 }
 </script>
 <style lang="scss">
