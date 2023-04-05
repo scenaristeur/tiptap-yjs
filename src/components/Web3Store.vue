@@ -1,23 +1,19 @@
 <template>
+    <hr>
            <span id="web3" v-if="step != null">
           <button @click="get_token">💾 web3</button> 
           <span>
             <input type="checkbox" id="replace" name="replace" disabled/> <!-- checked> -->
-            <label for="replace">overwrire</label>
+            <label for="replace">overwrite</label>
           </span>
-          <span>
-
-          </span>
-          <div v-if="web3_token==null">
-          <a href="https://web3.storage/tokens/" target="_blank">5GiB web3 storage</a>
-        </div>
           
             <a v-if="rootCid !=null" :href="'https://'+rootCid+'.ipfs.w3s.link/'" target="_blank">last save</a>
 
-            <hr>files ({{uploads.length}}): <span v-if="uploads[0] == 'updating'">Updating</span>
+           files ({{uploads.length}}): <a href="https://web3.storage/tokens/" target="_blank">5GiB web3 storage</a>  <span v-if="uploads[0] == 'updating'">Updating</span>
             <ul v-else>
                 <li v-for="u of uploads" :key="u._id">
-                    {{u.name}}, created: {{new Date(u.created).toLocaleString()}}, updated: {{new Date(u.updated).toLocaleString()}}, cid: {{u.cid}}, status: {{u.pins[0].status}}
+                    {{u.name}}, created: {{new Date(u.created).toLocaleString()}}, updated: {{new Date(u.updated).toLocaleString()}},
+                    <a :href="'https://'+u.cid+'.ipfs.w3s.link/'+u.name+'.json'" target="_blank">{{u.cid.slice(-10)}}</a>, status: {{u.pins[0].status}}
                 </li>
             </ul>
         </span>

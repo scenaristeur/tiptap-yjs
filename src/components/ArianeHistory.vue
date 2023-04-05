@@ -30,8 +30,3 @@ export default {
     }
 }
 </script>
-<style >
-#ariane {
-   /* color: rgb(22, 6, 238)*/
-}
-</style>
