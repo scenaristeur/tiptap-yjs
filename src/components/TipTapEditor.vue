@@ -1,5 +1,6 @@
 <template>
   <div class="editor" v-if="editor">
+
     <menu-bar class="editor__header" :editor="editor" />
     <editor-content class="editor__content" :editor="editor" />
     <div class="editor__footer">
@@ -17,6 +18,7 @@
           offline
         </template>
       </div>
+      <ShareModal />
       <div class="editor__name">
         <button @click="setName">
           {{ currentUser.name }}
@@ -39,6 +41,10 @@ import { Editor, EditorContent } from '@tiptap/vue-3'
 import * as Y from 'yjs'
 //import { variables } from './variables'
 import MenuBar from './MenuBar.vue'
+import ShareModal from '@/components/ShareModal'
+
+
+
 const getRandomElement = list => {
   return list[Math.floor(Math.random() * list.length)]
 }
@@ -52,6 +58,7 @@ export default {
   components: {
     EditorContent,
     MenuBar,
+    ShareModal
   },
   data() {
     return {
@@ -73,7 +80,7 @@ export default {
       const ydoc = new Y.Doc()
       this.provider = new HocuspocusProvider({
         //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance
-        url:'wss://hocus-noosphere.glitch.me/', //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
+        url: 'wss://hocus-noosphere.glitch.me/', //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
         parameters: {
           key: 'write_bqgvQ3Zwl34V4Nxt43zR',
         },
@@ -107,13 +114,13 @@ export default {
 
       this.editor.on('create', ({ editor }) => {
         console.log(editor.getJSON())
-        let step = {room: this.room, data: editor.getJSON(), type: 'tiptap'}
+        let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
         this.$store.dispatch('push', step)
         // The content has changed.
       })
       this.editor.on('update', ({ editor }) => {
         console.log(editor.getJSON())
-        let step = {room: this.room, data: editor.getJSON(), type: 'tiptap'}
+        let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
         this.$store.dispatch('push', step)
         // The content has changed.
       })
