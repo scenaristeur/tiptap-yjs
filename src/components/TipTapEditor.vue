@@ -126,6 +126,7 @@ export default {
       })
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
       localStorage.setItem('currentRoom', JSON.stringify(this.room))
+      this.$store.commit('setRoom', this.room)
       //console.log(this.provider)
       /*       this.editor.on('create', event => {
               console.log(event)

@@ -4,12 +4,16 @@ export default createStore({
   state: {
     ipfs: null,
     step: null,
+    room: null,
   },
   getters: {},
   mutations: {
     setIpfs(state, i) {
       state.ipfs = i;
     },
+    setRoom(state,r){
+      state.room = r
+    }
   },
   actions: {
     async push(context, step) {

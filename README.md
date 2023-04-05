@@ -1,5 +1,11 @@
 # noosphere3
 
+## Todo
+
+- [ ] share
+
+
+
 # custom hocuspocus-server 
 remix your own hocuspocus / ws server at https://glitch.com/edit/#!/hocus-noosphere
 
