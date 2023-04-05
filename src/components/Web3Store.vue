@@ -45,7 +45,10 @@ export default {
             if (this.web3_token == null || this.web3_token.length < 10) {
                 this.web3_token = prompt('My web3 token')
                 //console.log(this.web3_token)
-                localStorage.setItem('web3_token', this.web3_token)
+                if(this.web3_token != null && this.web3_token.length > 9){
+                    localStorage.setItem('web3_token', this.web3_token)
+                }
+           
             }
             this.pin()
         },
