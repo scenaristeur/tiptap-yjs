@@ -72,8 +72,17 @@ export default {
       room: JSON.parse(localStorage.getItem('currentRoom')) || getRandomRoom(),
     }
   },
+  created() {
+    console.log("router", this.$router, this.$route)
+    if (this.$route.query.room) {
+      this.room = this.$route.query.room
+      console.log('room', this.room)
+    }
+  },
   mounted() {
+
     this.createEditor()
+
   },
   methods: {
     createEditor() {
