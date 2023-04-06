@@ -18,6 +18,7 @@
           offline
         </template>
       </div>
+        <ShareModal />
       <div class="editor__name">
         <button @click="setName">
           {{ currentUser.name }}
@@ -38,6 +39,7 @@ import TaskList from '@tiptap/extension-task-list'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import * as Y from 'yjs'
+    import ShareModal from '@/components/ShareModal'
 
 //import { variables } from '../../../variables'
 import MenuBar from '@/components/MenuBar.vue'
@@ -56,6 +58,7 @@ export default {
   components: {
     EditorContent,
     MenuBar,
+    ShareModal
   },
 
   data() {

@@ -34,13 +34,13 @@ const NoosPlugin = {
     // coreYdoc.set('users', empty)
 
     const awareness = coreProvider.awareness
-    coreProvider.on("awarenessUpdate", ({ states }) => {
-      console.log("states", states);
-      users = coreYdoc.getMap('users')
-      rooms = coreYdoc.getMap('rooms')
-      store.commit('setUsers', users)
-      store.commit('setRooms', rooms)
-    });
+    // coreProvider.on("awarenessUpdate", ({ states }) => {
+    //   console.log("states", states);
+    //   users = coreYdoc.getMap('users')
+    //   rooms = coreYdoc.getMap('rooms')
+    //   store.commit('setUsers', users)
+    //   store.commit('setRooms', rooms)
+    // });
     console.log("awareness",awareness)
 
 
