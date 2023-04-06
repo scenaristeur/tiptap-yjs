@@ -7,13 +7,16 @@ export default createStore({
     room: null,
     user: null,
     rooms: {},
-    users: {}
+    users: {},
+    awareness: null
   },
   getters: {},
   mutations: {
-      setRoom(state,r){
+    setRoom(state,r){
       state.room = r
       console.log(state.room)
+      // let userInRoom = state.rooms.getMap(r)
+      // userInRoom.set(state.awareness.clientID, state.user)
     },
     setRooms(state, r){
       state.rooms = r
@@ -21,10 +24,18 @@ export default createStore({
     },
     setUser(state, u){
       state.user = u
+      console.log(state.users)
+      //state.users.set(state.awareness.clientID, state.user)
     },
+    // setClientID(state, id){
+    //   state.clientID = id
+    // },
     setUsers(state, u){
       state.users = u
       console.log(state.users)
+    },
+    setAwareness(state, a){
+      state.awareness = a
     },
 
     setIpfs(state, i) {

@@ -1,8 +1,12 @@
 <template>
   <div class="">
-    {{user}} /   {{room}}
+  {{awareness}} :  {{user}} /   {{room}}
     <hr>
-    {{users}} /   {{rooms}}
+    {{users}}
+
+    <hr>
+
+    {{rooms}}
     <!-- <van-list
     v-model:loading="loading"
     :finished="finished"
@@ -108,6 +112,9 @@ export default {
     },
     users(){
       return this.$store.state.users
+    },
+    awareness(){
+      return this.$store.state.awareness
     }
   }
 }

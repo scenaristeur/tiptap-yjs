@@ -1,5 +1,6 @@
 import { HocuspocusProvider } from '@hocuspocus/provider'
 import * as Y from 'yjs'
+import * as awarenessProtocol from 'y-protocols/awareness.js'
 
 
 const NoosPlugin = {
@@ -27,7 +28,10 @@ const NoosPlugin = {
     let rooms = coreYdoc.getMap('rooms')
     console.log("rooms", rooms)
     store.commit('setRooms', rooms)
-
+    //for (const [key/*, value*/] of rooms) { rooms.delete(key) }
+    // let empty = new Y.Map()
+    // coreYdoc.set('rooms', empty)
+    // coreYdoc.set('users', empty)
 
     const awareness = coreProvider.awareness
     coreProvider.on("awarenessUpdate", ({ states }) => {
@@ -37,6 +41,18 @@ const NoosPlugin = {
       store.commit('setUsers', users)
       store.commit('setRooms', rooms)
     });
+    console.log("awareness",awareness)
+
+
+
+    window.addEventListener('beforeunload', () => {
+      awarenessProtocol.removeAwarenessStates(
+        awareness, [coreYdoc.clientID], 'window unload'
+      )
+    })
+
+    store.commit('setAwareness', awareness)
+
 
 
     awareness.on('change', changes => {
@@ -47,6 +63,13 @@ const NoosPlugin = {
       store.commit('setUsers', Array.from(awareness.getStates().values()))
     })
 
+//nettoyage
+    // users.observe((event, trans) => {
+    //   for (let key of event.keysChanged) {
+    //     console.log(trans)
+    //     users.delete(key);
+    //   }
+    // });
 
 
 
