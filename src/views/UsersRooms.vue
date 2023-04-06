@@ -1,8 +1,8 @@
 <template>
   <div class="">
-    {{user}}
+    {{user}} /   {{room}}
     <hr>
-    {{room}}
+    {{users}} /   {{rooms}}
     <!-- <van-list
     v-model:loading="loading"
     :finished="finished"
@@ -15,15 +15,13 @@
 </template>
 
 <script>
-// import { HocuspocusProvider } from '@hocuspocus/provider'
-// import * as Y from 'yjs'
+
 
 export default {
   name: 'UsersRooms',
   data(){
     return {
-      users: null,
-      rooms: null
+
     }
   },
   created(){
@@ -104,6 +102,12 @@ export default {
     },
     user(){
       return this.$store.state.user
+    },
+    rooms(){
+      return this.$store.state.rooms
+    },
+    users(){
+      return this.$store.state.users
     }
   }
 }

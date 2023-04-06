@@ -1,10 +1,61 @@
+import { HocuspocusProvider } from '@hocuspocus/provider'
+import * as Y from 'yjs'
+
+
 const NoosPlugin = {
   install(app, opts = {}) {
     let store = opts.store
     //  let router = opts.router
     // configure the app
+    const coreYdoc = new Y.Doc()
+    // const roomsYmap = coreYdoc.getMap('rooms')
+    // const usersYmap = coreYdoc.getMap('users')
+    const coreProvider = new HocuspocusProvider({
+      //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance
+      url: 'wss://hocus-noosphere.glitch.me/', //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
+      // parameters: {
+      //   key: 'write_bqgvQ3Zwl34V4Nxt43zR',
+      // },
+      name: 'noosphere',
+      document: coreYdoc,
+    })
+
+    let users = coreYdoc.getMap('users')
+    console.log("users", users)
+    store.commit('setUsers', users)
+
+    let rooms = coreYdoc.getMap('rooms')
+    console.log("rooms", rooms)
+    store.commit('setRooms', rooms)
+
+
+    const awareness = coreProvider.awareness
+    coreProvider.on("awarenessUpdate", ({ states }) => {
+      console.log("states", states);
+      users = coreYdoc.getMap('users')
+      rooms = coreYdoc.getMap('rooms')
+      store.commit('setUsers', users)
+      store.commit('setRooms', rooms)
+    });
+
+
+    awareness.on('change', changes => {
+      console.log('changes', changes)
+      // Whenever somebody updates their awareness information,
+      // we log all awareness information from all users.
+      console.log(Array.from(awareness.getStates().values()))
+      store.commit('setUsers', Array.from(awareness.getStates().values()))
+    })
+
+
+
+
+
     app.config.globalProperties.$init = (key) => {
       console.info("INIT", key /*, store, router*/)
+      app.config.globalProperties.$initCoreProvider()
+      app.config.globalProperties.$initRooms()
+      app.config.globalProperties.$initUsers()
       let user=  JSON.parse(localStorage.getItem('currentUser')) || {
         name: app.config.globalProperties.$getRandomName(),
         color: app.config.globalProperties.$getRandomColor(),
@@ -15,6 +66,19 @@ const NoosPlugin = {
       let room =  JSON.parse(localStorage.getItem('currentRoom')) || app.config.globalProperties.$getRandomRoom()
       store.commit('setRoom', room)
     }
+
+
+    app.config.globalProperties.$initCoreProvider = () =>  {
+
+    }
+    app.config.globalProperties.$initRooms = () =>  {
+
+    }
+    app.config.globalProperties.$initUsers = () =>  {
+
+    }
+
+
 
     app.config.globalProperties.$getRandomElement = (list) =>  {
       return list[Math.floor(Math.random() * list.length)]
