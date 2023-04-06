@@ -71,7 +71,13 @@ export default {
     }
   },
 
-
+  created(){
+    console.log("router", this.$router, this.$route)
+    if (this.$route.query.room) {
+      this.room = this.$route.query.room
+      console.log('room', this.room)
+    }
+  },
   mounted(){
     this.createEditor()
   },
@@ -110,8 +116,38 @@ export default {
           }),
         ],
       })
+      this.editor.on('create', ({ editor }) => {
+        console.log(editor.getJSON())
+        let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
+        this.$store.dispatch('push', step)
+        // The content has changed.
+
+
+        // let user = this.currentUser
+        // user.room = this.room
+        // delete user.rooms[this.room]
+        // let room = {room: this.room, date : Date.now()}
+        //user.rooms[this.room] = room
+
+        this.$store.commit('setUser', this.currentUser)
+        this.$store.commit('setRoom', this.room)
+        // You can think of your own awareness information as a key-value store.
+        // We update our "user" field to propagate relevant user information.
+
+
+      })
+      this.editor.on('update', ({ editor }) => {
+        console.log(editor.getJSON())
+        let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
+        this.$store.dispatch('push', step)
+        // this.roomsYmap.set(this.room, editor.storage.collaborationCursor)
+        // this.rooms = this.roomsYmap
+        // The content has changed.
+      })
 
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
+      localStorage.setItem('currentRoom', JSON.stringify(this.room))
+      this.$store.commit('setRoom', this.room)
     },
     setName() {
       const name = (window.prompt('Name') || '')
