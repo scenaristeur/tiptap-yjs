@@ -5,6 +5,7 @@ export default createStore({
     ipfs: null,
     step: null,
     room: null,
+    user: undefined
   },
   getters: {},
   mutations: {
@@ -14,6 +15,9 @@ export default createStore({
     setRoom(state,r){
       state.room = r
       console.log(state.room)
+    },
+    setUser(state, u){
+      state.user = u
     }
   },
   actions: {

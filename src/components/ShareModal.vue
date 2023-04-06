@@ -1,7 +1,6 @@
 <template>
     <div>
         <van-cell is-link @click="showPopup">
-
             <VanIcon name="share-o" size="1.5rem" color="#1989fa" />
         </van-cell>
 

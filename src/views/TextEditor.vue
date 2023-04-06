@@ -1,13 +1,13 @@
 <template>
   <div class="editor" v-if="editor">
-
     <menu-bar class="editor__header" :editor="editor" />
     <editor-content class="editor__content" :editor="editor" />
     <div class="editor__footer">
       <div :class="`editor__status editor__status--${status}`">
         <template v-if="status === 'connected'">
-          {{ editor.storage.collaborationCursor.users.length }} user{{ editor.storage.collaborationCursor.users.length ===
-            1 ? '' : 's' }} online in
+          {{ editor.storage.collaborationCursor.users.length }}
+          user{{ editor.storage.collaborationCursor.users.length === 1 ? '' : 's' }}
+          online in
           <div class="editor__name">
             <button @click="setRoom">
               {{ room }}
@@ -18,13 +18,11 @@
           offline
         </template>
       </div>
-
       <div class="editor__name">
         <button @click="setName">
           {{ currentUser.name }}
         </button>
       </div>
-      <ShareModal />
     </div>
   </div>
 </template>
@@ -40,27 +38,26 @@ import TaskList from '@tiptap/extension-task-list'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import * as Y from 'yjs'
-//import { variables } from './variables'
-import MenuBar from './MenuBar.vue'
-import ShareModal from '@/components/ShareModal'
 
-
+//import { variables } from '../../../variables'
+import MenuBar from '@/components/MenuBar.vue'
 
 const getRandomElement = list => {
   return list[Math.floor(Math.random() * list.length)]
 }
+
 const getRandomRoom = () => {
-  // const roomNumbers = variables.collabRooms?.trim()?.split(',') ?? [10, 11, 12]
-  const roomNumbers = [...Array(99).keys()] // [61 /*10, 11, 12*/]
+  //const roomNumbers = variables.collabRooms?.trim()?.split(',') ?? [10, 11, 12]
+  const roomNumbers = [...Array(99).keys()]
   return getRandomElement(roomNumbers.map(number => `rooms.${number}`))
 }
+
 export default {
-  name: 'TipTapEditor',
   components: {
     EditorContent,
     MenuBar,
-    ShareModal
   },
+
   data() {
     return {
       currentUser: JSON.parse(localStorage.getItem('currentUser')) || {
@@ -70,33 +67,25 @@ export default {
       provider: null,
       editor: null,
       status: 'connecting',
-      room: JSON.parse(localStorage.getItem('currentRoom')) || getRandomRoom(),
+      room: getRandomRoom(),
     }
   },
-  created() {
-    console.log("router", this.$router, this.$route)
-    if (this.$route.query.room) {
-      this.room = this.$route.query.room
-      console.log('room', this.room)
-    }
-  },
-  mounted() {
 
+
+  mounted(){
     this.createEditor()
-
   },
   methods: {
     createEditor() {
       const ydoc = new Y.Doc()
+
       this.provider = new HocuspocusProvider({
-        //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance
-        url: 'wss://hocus-noosphere.glitch.me/', //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
-        parameters: {
-          key: 'write_bqgvQ3Zwl34V4Nxt43zR',
-        },
+        //appId: '7j9y6m10',
+        url: 'wss://hocus-noosphere.glitch.me/',
         name: this.room,
         document: ydoc,
       })
+
       this.provider.on('status', event => {
         this.status = event.status
       })
@@ -122,33 +111,13 @@ export default {
         ],
       })
 
-      this.editor.on('create', ({ editor }) => {
-        console.log(editor.getJSON())
-        let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
-        this.$store.dispatch('push', step)
-        // The content has changed.
-      })
-      this.editor.on('update', ({ editor }) => {
-        console.log(editor.getJSON())
-        let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
-        this.$store.dispatch('push', step)
-        // The content has changed.
-      })
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
-      localStorage.setItem('currentRoom', JSON.stringify(this.room))
-      this.$store.commit('setRoom', this.room)
-      //console.log(this.provider)
-      /*       this.editor.on('create', event => {
-              console.log(event)
-            })
-            this.editor.on('update', event => {
-              console.log(event)
-            }) */
     },
     setName() {
       const name = (window.prompt('Name') || '')
-        .trim()
-        .substring(0, 32)
+      .trim()
+      .substring(0, 32)
+
       if (name) {
         return this.updateCurrentUser({
           name,
@@ -157,17 +126,19 @@ export default {
     },
     setRoom() {
       const room = (window.prompt('Choose a Room from 0 to 99') || '')
-        .trim()
-        .substring(0, 32)
+      .trim()
+      .substring(0, 32)
       if (room) {
         return this.updateCurrentRoom({
           room,
         })
       }
     },
+
     updateCurrentUser(attributes) {
       this.currentUser = { ...this.currentUser, ...attributes }
       this.editor.chain().focus().updateUser(this.currentUser).run()
+
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
     },
     updateCurrentRoom(attributes) {
@@ -178,6 +149,7 @@ export default {
       this.provider.destroy()
       this.createEditor()
     },
+
     getRandomColor() {
       return getRandomElement([
         '#958DF1',
@@ -189,6 +161,7 @@ export default {
         '#B9F18D',
       ])
     },
+
     getRandomName() {
       return getRandomElement([
         'Lea Thompson', 'Cyndi Lauper', 'Tom Cruise', 'Madonna', 'Jerry Hall', 'Joan Collins', 'Winona Ryder', 'Christina Applegate', 'Alyssa Milano', 'Molly Ringwald', 'Ally Sheedy', 'Debbie Harry', 'Olivia Newton-John', 'Elton John', 'Michael J. Fox', 'Axl Rose', 'Emilio Estevez', 'Ralph Macchio', 'Rob Lowe', 'Jennifer Grey', 'Mickey Rourke', 'John Cusack', 'Matthew Broderick', 'Justine Bateman', 'Lisa Bonet',
@@ -203,10 +176,10 @@ export default {
     roomFromSomewhere() {
       let room = this.roomFromSomewhere
       console.log(room)
-     // if (room.rooms) this.updateCurrentRoom({room})
-     this.updateCurrentRoom({
-          room,
-        })
+      // if (room.rooms) this.updateCurrentRoom({room})
+      this.updateCurrentRoom({
+        room,
+      })
     }
   },
   computed: {
