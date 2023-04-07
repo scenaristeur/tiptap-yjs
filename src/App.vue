@@ -1,12 +1,14 @@
 <template>
   <div>
     <router-view />
+
+
     <!-- <IpfsInfo /> -->
     <nav>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </nav>
-<!-- <UsersRooms /> -->
+
     <!-- <OrbitManage /> -->
   </div>
 </template>
@@ -14,14 +16,9 @@
 <script>
 // @ is an alias to /src
 // import IpfsInfo from '@/components/IpfsInfo.vue'
-// import UsersRooms from '@/views/UsersRooms.vue'
 
 export default {
   name: 'HomeView',
-  components: {
-  //  IpfsInfo,
-   // UsersRooms
-  },
   created(){
   //  this.$init('go')
     console.log("router", this.$router, this.$route)

@@ -1,47 +1,17 @@
 <template>
   <div class="">
 
-
-
-    <ul>
-      <li v-for="room in rooms" :key="room[0]">
-        <b>{{room[0]}} :</b>
-        <ul>
-          <li v-for="user in room[1]" :key="user.clientID">{{user.name}}
-            <ul>
-              <li v-for="r in user.rooms" :key="r[0]">{{r}}</li>
-
-              </ul>
-
-
-            </li>
-          </ul>
-          <br><br>
-        </li>
-      </ul>
-      <hr>
-      awareness : {{awareness}} <hr>
-      user: {{user}}<hr>
-      room:   {{room}}
-      <hr>
-      users:  {{users}}
-
-      <hr>
-      rooms:  {{rooms}}
-      <!-- <van-list
-      v-model:loading="loading"
-      :finished="finished"
-      finished-text="Finished"
-      @load="onLoad"
-      > -->
-      <!-- <van-list>
-      <van-cell v-for="u in rooms" :key="u.user.id" :title="user.name" is-link @click="showUser(user)" />
-    </van-list> -->
+    <span class="editor__name" v-for="room in Array.from(rooms).reverse()" :key="room[0]">
+      <button @click="showRoom(room[0])">
+        {{room[0]}}
+      </button>
+    </span>
   </div>
 </template>
 
 <script>
-
+import * as Y from 'yjs'
+import { HocuspocusProvider } from '@hocuspocus/provider'
 
 export default {
   name: 'UsersRooms',
@@ -51,17 +21,18 @@ export default {
     }
   },
   created(){
-    // const coreYdoc = new Y.Doc()
-    // this.roomsYmap = coreYdoc.getMap('rooms')
-    // this.coreProvider = new HocuspocusProvider({
-    //   //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance
-    //   url: 'wss://hocus-noosphere.glitch.me/', //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
-    //   // parameters: {
-    //   //   key: 'write_bqgvQ3Zwl34V4Nxt43zR',
-    //   // },
-    //   name: 'noosphere',
-    //   document: coreYdoc,
-    // })
+    const coreYdoc = new Y.Doc()
+    this.roomsYmap = coreYdoc.getMap('rooms')
+    this.coreProvider = new HocuspocusProvider({
+      //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance
+      url: 'wss://hocus-noosphere.glitch.me/', //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
+      // parameters: {
+      //   key: 'write_bqgvQ3Zwl34V4Nxt43zR',
+      // },
+      name: 'noosphere',
+      document: coreYdoc,
+    })
+    this.$store.commit('setRooms', this.roomsYmap)
     // this.awareness = this.coreProvider.awareness
     // // this.coreProvider.on("awarenessUpdate", ({ states }) => {
     // //   console.log("states", states);
@@ -107,6 +78,10 @@ export default {
 
   },
   methods:{
+    showRoom(r){
+      console.log(r)
+      this.$store.commit('setRoom', r)
+    }
     // showUser(u){
     //   console.log(u.id, u.name)
     // },

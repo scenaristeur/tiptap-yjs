@@ -24,9 +24,9 @@
           {{ currentUser.name }}
         </button>
       </div>
-{{users}}
-    </div>
 
+    </div>
+    <!-- {{ collaborationUsers}} -->
   </div>
 </template>
 
@@ -126,7 +126,7 @@ export default {
         ],
       })
       this.editor.on('create', ({ editor }) => {
-      //  console.log(editor.getJSON())
+        //  console.log(editor.getJSON())
         let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
         this.$store.dispatch('push', step)
         // The content has changed.
@@ -148,7 +148,7 @@ export default {
 
       })
       this.editor.on('update', ({ editor }) => {
-        console.log(editor.getJSON())
+      //  console.log(editor.getJSON())
         let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
         this.$store.dispatch('push', step)
         // this.roomsYmap.set(this.room, editor.storage.collaborationCursor)
@@ -160,7 +160,7 @@ export default {
       localStorage.setItem('currentRoom', JSON.stringify(this.room))
       let r = {room: this.room, users: this.editor.storage.collaborationCursor.users}
       this.$store.commit('updateRooms', r)
-    //  this.$store.commit('setRoom', this.room)
+      //  this.$store.commit('setRoom', this.room)
     },
     setName() {
       const name = (window.prompt('Name') || '')
@@ -224,28 +224,31 @@ export default {
   watch: {
     roomFromSomewhere() {
       if(this.room != this.roomFromSomewhere){
-      let room = this.roomFromSomewhere
-      console.log(room)
-      // if (room.rooms) this.updateCurrentRoom({room})
-      this.updateCurrentRoom({
-        room,
-      })
+        let room = this.roomFromSomewhere
+        console.log(room)
+        // if (room.rooms) this.updateCurrentRoom({room})
+        this.updateCurrentRoom({
+          room,
+        })
+      }
+    },
+    collaborationUsers(){
+      if (this.users != this.collaborationUsers){
+        console.log("collaborationUsers changed", this.collaborationUsers)
+        this.$store.commit('setUsersInRoom', {room: this.room, users: this.collaborationUsers})
+      }
     }
-  },
-  users(){
-    console.log("users changed", this.users)
-  }
   },
   computed: {
     roomFromSomewhere() {
       return this.$store.state.room
     },
-    users(){
+    collaborationUsers(){
       return this.editor == null ? [] : this.editor.storage.collaborationCursor.users
+    },
+    users() {
+      return this.$store.state.users
     }
-    // awareness() {
-    //   return this.$store.state.awareness
-    // }
   }
 }
 </script>

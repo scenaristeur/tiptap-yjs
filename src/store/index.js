@@ -6,7 +6,7 @@ export default createStore({
     step: null,
     room: null,
     user: null,
-    rooms: {},
+    rooms: null,
     users: {},
     awareness: null
   },
@@ -20,7 +20,7 @@ export default createStore({
     },
     setRooms(state, r){
       state.rooms = r
-      console.log(state.rooms)
+      console.log("setRooms",state.rooms)
     },
     setUser(state, u){
       state.user = u
@@ -30,9 +30,18 @@ export default createStore({
     // setClientID(state, id){
     //   state.clientID = id
     // },
-    setUsers(state, u){
-      state.users = u
-      console.log(state.users)
+    setUsersInRoom(state, data){
+      // state.users = u
+      // if (state.rooms != undefined){
+      try{
+        state.rooms.set(data.room, data.users)
+        console.log(state.rooms)
+      }catch(e){
+        console.log(e)
+      }
+
+      // }
+
     },
     setAwareness(state, a){
       state.awareness = a
@@ -49,13 +58,13 @@ export default createStore({
   },
   actions: {
     async push(context, step) {
-    //  let ipfs = context.state.ipfs;
-    //  console.log("step", ipfs, step);
+      //  let ipfs = context.state.ipfs;
+      //  console.log("step", ipfs, step);
       //if (ipfs != null) {
-        // step.cid = await ipfs.add(JSON.stringify(step.data), { cidVersion: 1 });
-        // console.info("cid", step);
-        context.state.step = step;
-        //  context.dispatch("noosphere/addHistory", cid, { root: true });
+      // step.cid = await ipfs.add(JSON.stringify(step.data), { cidVersion: 1 });
+      // console.info("cid", step);
+      context.state.step = step;
+      //  context.dispatch("noosphere/addHistory", cid, { root: true });
       // } else {
       //   console.log("IPFS is null");
       // }
