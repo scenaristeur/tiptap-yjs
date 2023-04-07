@@ -64,10 +64,10 @@ const NoosPlugin = {
     })
 
 //nettoyage
-    // users.observe((event, trans) => {
+    // rooms.observe((event, trans) => {
     //   for (let key of event.keysChanged) {
     //     console.log(trans)
-    //     users.delete(key);
+    //     rooms.delete(key);
     //   }
     // });
 

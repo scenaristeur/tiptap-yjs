@@ -8,9 +8,9 @@ import store from './store'
 // 2. Import the components style
 import 'vant/lib/index.css';
 
-import NoosPlugin from './plugins/noos-plugin';
+// import NoosPlugin from './plugins/noos-plugin';
 
 createApp(App).use(store).use(router)
-.use(NoosPlugin, {store: store, router: router})
+// .use(NoosPlugin, {store: store, router: router})
 // .use(Button)
 .mount('#app')

@@ -1,21 +1,43 @@
 <template>
   <div class="">
-  {{awareness}} :  {{user}} /   {{room}}
-    <hr>
-    {{users}}
 
-    <hr>
 
-    {{rooms}}
-    <!-- <van-list
-    v-model:loading="loading"
-    :finished="finished"
-    finished-text="Finished"
-    @load="onLoad"
-    >
-    <van-cell v-for="u in users" :key="u.user.id" :title="user.name" is-link @click="showUser(user)" />
-  </van-list> -->
-</div>
+
+    <ul>
+      <li v-for="room in rooms" :key="room[0]">
+        <b>{{room[0]}} :</b>
+        <ul>
+          <li v-for="user in room[1]" :key="user.clientID">{{user.name}}
+            <ul>
+              <li v-for="r in user.rooms" :key="r[0]">{{r}}</li>
+
+              </ul>
+
+
+            </li>
+          </ul>
+          <br><br>
+        </li>
+      </ul>
+      <hr>
+      awareness : {{awareness}} <hr>
+      user: {{user}}<hr>
+      room:   {{room}}
+      <hr>
+      users:  {{users}}
+
+      <hr>
+      rooms:  {{rooms}}
+      <!-- <van-list
+      v-model:loading="loading"
+      :finished="finished"
+      finished-text="Finished"
+      @load="onLoad"
+      > -->
+      <!-- <van-list>
+      <van-cell v-for="u in rooms" :key="u.user.id" :title="user.name" is-link @click="showUser(user)" />
+    </van-list> -->
+  </div>
 </template>
 
 <script>
@@ -121,7 +143,5 @@ export default {
 </script>
 
 <style lang="css" scoped>
-. {
 
-}
 </style>

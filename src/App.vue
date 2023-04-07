@@ -14,12 +14,13 @@
 <script>
 // @ is an alias to /src
 // import IpfsInfo from '@/components/IpfsInfo.vue'
-// import UsersRooms from '@/components/UsersRooms.vue'
+// import UsersRooms from '@/views/UsersRooms.vue'
 
 export default {
   name: 'HomeView',
   components: {
-  //  IpfsInfo, UsersRooms
+  //  IpfsInfo,
+   // UsersRooms
   },
   created(){
   //  this.$init('go')

@@ -37,6 +37,11 @@ export default createStore({
     setAwareness(state, a){
       state.awareness = a
     },
+    updateRooms(state, r){
+      console.log("update rooms",r)
+      //state.rooms.set(r.room, r.users)
+
+    },
 
     setIpfs(state, i) {
       state.ipfs = i;

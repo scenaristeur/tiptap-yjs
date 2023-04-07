@@ -18,13 +18,15 @@
           offline
         </template>
       </div>
-        <ShareModal />
+      <ShareModal />
       <div class="editor__name">
         <button @click="setName">
           {{ currentUser.name }}
         </button>
       </div>
+{{users}}
     </div>
+
   </div>
 </template>
 
@@ -39,7 +41,7 @@ import TaskList from '@tiptap/extension-task-list'
 import StarterKit from '@tiptap/starter-kit'
 import { Editor, EditorContent } from '@tiptap/vue-3'
 import * as Y from 'yjs'
-    import ShareModal from '@/components/ShareModal'
+import ShareModal from '@/components/ShareModal'
 
 //import { variables } from '../../../variables'
 import MenuBar from '@/components/MenuBar.vue'
@@ -66,6 +68,7 @@ export default {
       currentUser: JSON.parse(localStorage.getItem('currentUser')) || {
         name: this.getRandomName(),
         color: this.getRandomColor(),
+        rooms: {}
       },
       provider: null,
       editor: null,
@@ -99,6 +102,9 @@ export default {
         this.status = event.status
       })
 
+      this.currentUser.rooms[this.room] = {room: this.room, date: Date.now()}
+      //this.currentUser.clientID = this.awareness.clientID
+
       this.editor = new Editor({
         extensions: [
           StarterKit.configure({
@@ -120,7 +126,7 @@ export default {
         ],
       })
       this.editor.on('create', ({ editor }) => {
-        console.log(editor.getJSON())
+      //  console.log(editor.getJSON())
         let step = { room: this.room, data: editor.getJSON(), type: 'tiptap' }
         this.$store.dispatch('push', step)
         // The content has changed.
@@ -133,7 +139,9 @@ export default {
         //user.rooms[this.room] = room
 
         this.$store.commit('setUser', this.currentUser)
+
         this.$store.commit('setRoom', this.room)
+
         // You can think of your own awareness information as a key-value store.
         // We update our "user" field to propagate relevant user information.
 
@@ -150,7 +158,9 @@ export default {
 
       localStorage.setItem('currentUser', JSON.stringify(this.currentUser))
       localStorage.setItem('currentRoom', JSON.stringify(this.room))
-      this.$store.commit('setRoom', this.room)
+      let r = {room: this.room, users: this.editor.storage.collaborationCursor.users}
+      this.$store.commit('updateRooms', r)
+    //  this.$store.commit('setRoom', this.room)
     },
     setName() {
       const name = (window.prompt('Name') || '')
@@ -213,6 +223,7 @@ export default {
   },
   watch: {
     roomFromSomewhere() {
+      if(this.room != this.roomFromSomewhere){
       let room = this.roomFromSomewhere
       console.log(room)
       // if (room.rooms) this.updateCurrentRoom({room})
@@ -221,10 +232,20 @@ export default {
       })
     }
   },
+  users(){
+    console.log("users changed", this.users)
+  }
+  },
   computed: {
     roomFromSomewhere() {
       return this.$store.state.room
+    },
+    users(){
+      return this.editor == null ? [] : this.editor.storage.collaborationCursor.users
     }
+    // awareness() {
+    //   return this.$store.state.awareness
+    // }
   }
 }
 </script>
