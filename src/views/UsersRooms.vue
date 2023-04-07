@@ -1,10 +1,17 @@
 <template>
   <div class="">
 
-    <span class="editor__name" v-for="room in Array.from(rooms).reverse()" :key="room[0]">
+    <span class="editor__name" v-for="room in Array.from(rooms).reverse().sort((a,b) => b[1].length - a[1].length).slice(0, 100)" :key="room[0]">
+
+
+
       <button @click="showRoom(room[0])">
-        {{room[0]}}
+        <van-badge :content="room[1].length" color="#1989fa" position="bottom-left">
+          {{room[0]}}
+        </van-badge>
       </button>
+      <!-- {{room[1]}} -->
+
     </span>
   </div>
 </template>
