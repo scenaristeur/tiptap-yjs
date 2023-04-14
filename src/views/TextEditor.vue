@@ -213,7 +213,10 @@ export default {
 
     getRandomName() {
       return getRandomElement([
-        'Lea Thompson', 'Cyndi Lauper', 'Tom Cruise', 'Madonna', 'Jerry Hall', 'Joan Collins', 'Winona Ryder', 'Christina Applegate', 'Alyssa Milano', 'Molly Ringwald', 'Ally Sheedy', 'Debbie Harry', 'Olivia Newton-John', 'Elton John', 'Michael J. Fox', 'Axl Rose', 'Emilio Estevez', 'Ralph Macchio', 'Rob Lowe', 'Jennifer Grey', 'Mickey Rourke', 'John Cusack', 'Matthew Broderick', 'Justine Bateman', 'Lisa Bonet',
+        'Leon Thompson', 'Bonnie Journey', 'Thomas Croisé', 'Malouna', 'Terry Ball', 'Jean Collik', 'Winoumanona Raider', 'Christina Pompin',
+         'Alycia Francisco', 'Moully Ringinald', 'Béatrice Allou', 'Pierre Kiroul', 'Namass Pamouss',
+          'Etu Diante', 'Da Di Falavaleris', 'Dgef', 'Emilio Agricolo', 'Miss B', 'Spider Marvel', 
+          'Hulkor Geeen', 'Smoke Onthewater', 'Bebop Euloula', 'Mick Mock', 'Peter Piter', 'Stocking Head',
       ])
     },
   },
