@@ -1,18 +1,36 @@
 <template>
   <div class="">
+    <span class="editor__name">
 
-    <span class="editor__name" v-for="room in Array.from(rooms).reverse().sort((a,b) => b[1].length - a[1].length).slice(0, 100)" :key="room[0]">
+      <button style="background-color:yellow" @click="showRoom('rooms.hello')">
+        rooms.hello
+      </button>
+    </span>
 
-
-
+    <span class="editor__name"
+      v-for="room in Array.from(rooms).reverse().sort((a, b) => b[1].length - a[1].length).slice(0, 100)" :key="room[0]">
       <button @click="showRoom(room[0])">
         <van-badge :content="room[1].length" color="#1989fa" position="bottom-left">
-          {{room[0]}}
+          {{ room[0] }}
         </van-badge>
       </button>
-      <!-- {{room[1]}} -->
-
+      <span v-for="client in room[1]" :key="client.clientId">
+        <br>
+        <span :style="'background-color:'+client.color">{{client.name}}</span>
+        
+        <span class="editor__name"
+      v-for="/*[*/k/*,v]*/ in Object.entries(client.rooms).sort((a, b) => b.date - a.date).slice(0, 10)" :key="k">
+      <button @click="showRoom(k[0])">
+        
+          {{ k[0] }} <!--{{ k[1].date }}-->
+       
+      </button>
+  
+        </span>
+      </span> 
+      <br>
     </span>
+
   </div>
 </template>
 
@@ -22,12 +40,12 @@ import { HocuspocusProvider } from '@hocuspocus/provider'
 
 export default {
   name: 'UsersRooms',
-  data(){
-    return {
-
-    }
+  data() {
+  /*   return {
+      users_rooms: []
+    } */
   },
-  created(){
+  created() {
     const coreYdoc = new Y.Doc()
     this.roomsYmap = coreYdoc.getMap('rooms')
     this.coreProvider = new HocuspocusProvider({
@@ -84,8 +102,8 @@ export default {
     // console.log(u)
 
   },
-  methods:{
-    showRoom(r){
+  methods: {
+    showRoom(r) {
       console.log(r)
       this.$store.commit('setRoom', r)
     }
@@ -97,33 +115,48 @@ export default {
     // }
   },
   watch: {
-    // room(){
-    //   console.log('room', this.room)
-    // },
+ /*    rooms() {
+      console.log('rooms', this.rooms.toJSON())
+      this.users_rooms = []
+
+      for (const [key, value] of Object.entries(this.rooms.toJSON())) {
+  console.log(`${key}: ${value}`);
+}
+
+this.users_rooms = this.rooms //Object.values(this.rooms)
+
+ /*      <div v-for="room in Array.from(rooms)" :key="room[0]">
+      <div v-for="client of room[1]" :key="client.clientId">
+        {{ client.name }}
+        {{ Object.keys(client.rooms) }}
+        <br>
+        <br>
+      </div>
+    </div> */
+
+   // }, */
     // user(){
     //   this.awareness.setLocalStateField('user', this.user)
     // }
   },
-  computed:{
-    room(){
+  computed: {
+    room() {
       return this.$store.state.room
     },
-    user(){
+    user() {
       return this.$store.state.user
     },
-    rooms(){
+    rooms() {
       return this.$store.state.rooms
     },
-    users(){
+    users() {
       return this.$store.state.users
     },
-    awareness(){
+    awareness() {
       return this.$store.state.awareness
     }
   }
 }
 </script>
 
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>

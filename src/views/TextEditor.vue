@@ -15,7 +15,7 @@
           </div>
         </template>
         <template v-else>
-          offline
+          <span style="color:red">offline : </span>merci d'attendre 30 secondes que le serveur démarre
         </template>
       </div>
       <ShareModal />
