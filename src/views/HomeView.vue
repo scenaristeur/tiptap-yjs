@@ -1,12 +1,10 @@
 <template>
   <div class="home">
-    <!--     <img alt="Vue logo" src="../assets/logo.png"> -->
     <TextEditor />
     <Web3Store />
     <UsersRooms />
-    <!-- <UsersRooms /> -->
 
-    <!-- <IpfsInfo /> -->
+     <!-- IpfsInfo /> -->
   </div>
 </template>
 
@@ -16,20 +14,17 @@ import TextEditor from '@/views/TextEditor.vue'
 import UsersRooms from '@/views/UsersRooms.vue'
 import Web3Store from '@/components/Web3Store.vue'
 
-// import UsersRooms from '@/views/UsersRooms.vue'
 
 
-// import IpfsInfo from '@/components/IpfsInfo.vue'
-
+/*  import IpfsInfo from '@/components/IpfsInfo.vue'
+ */
 export default {
   name: 'HomeView',
   components: {
     TextEditor,
     UsersRooms,
     Web3Store,
-    // UsersRooms,
-
-    //IpfsInfo
+    /* IpfsInfo */
   }
 }
 </script>

@@ -7,10 +7,10 @@
         <template v-if="status === 'connected'">
           {{ editor.storage.collaborationCursor.users.length }}
           user{{ editor.storage.collaborationCursor.users.length === 1 ? '' : 's' }}
-          online in
-          <div class="editor__name">
+          online in {{ room }}
+          <div >
             <button @click="setRoom">
-              {{ room }}
+              Create or Connect
             </button>
           </div>
         </template>
@@ -20,6 +20,7 @@
       </div>
       <ShareModal />
       <div class="editor__name">
+        change username :
         <button @click="setName">
           {{ currentUser.name }}
         </button>

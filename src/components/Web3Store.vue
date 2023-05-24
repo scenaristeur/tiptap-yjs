@@ -1,5 +1,6 @@
 <template>
     <hr>
+    PErsist THis ROom TO YOur WEb3 STorage 
            <!-- <span id="web3" v-if="step != null"> -->
           <button @click="get_token">💾 web3</button>
           <span>
