@@ -1,18 +1,18 @@
 <template>
   <div class="home">
-    <b-container>
+    <b-container fluid>
       <b-row>
         <b-col>
           <TextEditor />
         </b-col>
         <b-col>
-          <Web3Store />
+          <ThreeView />
         </b-col>
       </b-row>
 
       <b-row>
         <b-col>
-          <ThreeView />
+          <Web3Store />
         </b-col>
         <b-col>
           <UsersRooms />
