@@ -20,6 +20,8 @@
     "@tiptap/pm": "^2.0.0-beta.220",
     "@tiptap/starter-kit": "^2.0.0-beta.220",
     "@tiptap/vue-3": "^2.0.0-beta.220",
+    "3d-force-graph": "^1.71.4",
+    "bootstrap-vue-3": "^0.5.1",
     "core-js": "^3.8.3",
     "html5-qrcode": "^2.3.7",
     "path-browserify": "^1.0.1",
