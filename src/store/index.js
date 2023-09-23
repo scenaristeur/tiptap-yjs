@@ -7,25 +7,29 @@ export default createStore({
     room: null,
     user: null,
     rooms: null,
-    users: {},
+    users: [],
     awareness: null
   },
   getters: {},
   mutations: {
-    setRoom(state,r){
+    setEDITORRoom(state,r){
       state.room = r
       console.log(state.room)
       // let userInRoom = state.rooms.getMap(r)
       // userInRoom.set(state.awareness.clientID, state.user)
     },
-    setRooms(state, r){
+    setCORERooms(state, r){
       state.rooms = r
       console.log("setRooms",state.rooms)
     },
     setUser(state, u){
       state.user = u
-      console.log(state.users)
-      //state.users.set(state.awareness.clientID, state.user)
+      console.log("SET USER",state.users)
+      state.users.set(state.awareness.clientID, state.user)
+    },
+    setCOREUsers(state, u){
+      console.log('setusers',u)
+      state.users = u
     },
     // setclientID(state, id){
     //   state.clientID = id
@@ -44,12 +48,12 @@ export default createStore({
       // }
 
     },
-    setAwareness(state, a){
+    setCOREAwareness(state, a){
       state.awareness = a
     },
     updateRooms(state, r){
       console.log("update rooms",r)
-      //state.rooms.set(r.room, r.users)
+      state.rooms.set(r.room, r.users)
 
     },
 

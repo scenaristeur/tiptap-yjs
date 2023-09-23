@@ -4,8 +4,10 @@
       <b-row>
         <b-col>
           <TextEditor />
+          <UsersView />
         </b-col>
         <b-col>
+          <RoomsView />
           <ThreeView />
         </b-col>
       </b-row>
@@ -30,6 +32,8 @@ import TextEditor from "@/views/TextEditor.vue";
 import UsersRooms from "@/views/UsersRooms.vue";
 import Web3Store from "@/components/Web3Store.vue";
 import ThreeView from "@/views/ThreeView.vue";
+import UsersView from "./UsersView.vue";
+import RoomsView from "./RoomsView.vue";
 
 /*  import IpfsInfo from '@/components/IpfsInfo.vue'
  */
@@ -40,6 +44,8 @@ export default {
     UsersRooms,
     Web3Store,
     ThreeView,
+    UsersView,
+    RoomsView,
 
     /* IpfsInfo */
   },

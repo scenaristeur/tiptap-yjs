@@ -46,8 +46,8 @@
 </template>
 
 <script>
-import * as Y from "yjs";
-import { HocuspocusProvider } from "@hocuspocus/provider";
+// import * as Y from "yjs";
+// import { HocuspocusProvider } from "@hocuspocus/provider";
 
 export default {
   name: "UsersRooms",
@@ -57,20 +57,19 @@ export default {
     } 
   },*/
   created() {
-    const coreYdoc = new Y.Doc();
-    this.roomsYmap = coreYdoc.getMap("rooms");
-    this.coreProvider = new HocuspocusProvider({
-      //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance
-      url: "wss://hocus-noosphere.glitch.me/", //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
-      // parameters: {
-      //   key: 'write_bqgvQ3Zwl34V4Nxt43zR',
-      // },
-      name: "noosphere",
-      document: coreYdoc,
-    });
-    console.log("roomYmap USERSROOMS", this.roomsYmap);
-    this.$store.commit("setRooms", this.roomsYmap);
-
+    // const coreYdoc = new Y.Doc();
+    // this.roomsYmap = coreYdoc.getMap("rooms");
+    // this.coreProvider = new HocuspocusProvider({
+    //   //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance
+    //   url: "wss://hocus-noosphere.glitch.me/", //hocuspocus with mysqlite //'wss://connect.hocuspocus.cloud',
+    //   // parameters: {
+    //   //   key: 'write_bqgvQ3Zwl34V4Nxt43zR',
+    //   // },
+    //   name: "noosphere",
+    //   document: coreYdoc,
+    // });
+    // console.log("roomYmap USERSROOMS", this.roomsYmap);
+    // this.$store.commit("setRooms", this.roomsYmap);
     // this.awareness = this.coreProvider.awareness
     // // this.coreProvider.on("awarenessUpdate", ({ states }) => {
     // //   console.log("states", states);
@@ -85,18 +84,15 @@ export default {
     //   console.log(Array.from(this.awareness.getStates().values()))
     //   this.users = Array.from(this.awareness.getStates().values())
     // })
-
     // // Method 2: Define Y.Map that can be included into the Yjs document
     // const ymapNested = new Y.Map()
     //
     // // Nested types can be included as content into any other shared type
     // this.roomsYmap.set('my nested map', ymapNested)
-
     // Common methods
     // this.roomsYmap.set('prop-name', 'value') // value can be anything json-encodable
     // let val = this.roomsYmap.get('prop-name') // => 'value'
     // console.log("ROOMS.VAL",val)
-
     // const ydoc = new Y.Doc()
     // this.provider = new HocuspocusProvider({
     //   //url: "wss://yjs-leveldb.glitch.me/", // old noosphere with leveldb persistance

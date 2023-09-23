@@ -1,5 +1,4 @@
 <template>
-  <div>awareness : {{ awareness }}</div>
   <div ref="graph"></div>
   <hr />
 
@@ -92,7 +91,7 @@ export default {
         for (const [key, value] of Object.entries(this.rooms)) {
           //console.log(`EFEEFE ${key}:`);
 
-          let roomNode = { id: key, group: "room" };
+          let roomNode = { id: key, name: key, group: "room" };
           let exist = this.nodes.find((x) => x.id == roomNode);
           // console.log("exist", exist);
           exist == undefined ? this.nodes.push(roomNode) : "";

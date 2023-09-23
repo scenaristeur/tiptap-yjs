@@ -13,10 +13,10 @@ import BootstrapVue3 from "bootstrap-vue-3";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-vue-3/dist/bootstrap-vue-3.css";
 
-// import NoosPlugin from './plugins/noos-plugin';
+import NoosPlugin from './plugins/noos-plugin';
 
 createApp(App).use(store).use(router)
 .use(BootstrapVue3)
-// .use(NoosPlugin, {store: store, router: router})
+.use(NoosPlugin, {store: store, router: router})
 // .use(Button)
 .mount('#app')

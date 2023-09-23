@@ -46,6 +46,7 @@ import ShareModal from "@/components/ShareModal";
 
 //import { variables } from '../../../variables'
 import MenuBar from "@/components/MenuBar.vue";
+import * as awarenessProtocol from "y-protocols/awareness.js";
 
 const getRandomElement = (list) => {
   return list[Math.floor(Math.random() * list.length)];
@@ -99,6 +100,35 @@ export default {
         document: ydoc,
       });
 
+      const awareness = this.provider.awareness;
+      // coreProvider.on("awarenessUpdate", ({ states }) => {
+      //   console.log("states", states);
+      //   users = coreYdoc.getMap('users')
+      //   rooms = coreYdoc.getMap('rooms')
+      //   store.commit('setUsers', users)
+      //   store.commit('setRooms', rooms)
+      // });
+      console.log("awareness", awareness);
+
+      window.addEventListener("beforeunload", () => {
+        awarenessProtocol.removeAwarenessStates(
+          awareness,
+          [ydoc.clientID],
+          "window unload"
+        );
+      });
+
+      console.log("EDITOR awareness", awareness, awareness.clientID);
+      // this.$store.commit("setAwareness", awareness);
+
+      awareness.on("change", (changes) => {
+        console.log("changes", changes);
+        // Whenever somebody updates their awareness information,
+        // we log all awareness information from all users.
+        console.log("USERS", Array.from(awareness.getStates().values()));
+        //this.$store.commit("setUsers", Array.from(awareness.getStates().values()));
+      });
+
       this.provider.on("status", (event) => {
         this.status = event.status;
       });
@@ -137,10 +167,10 @@ export default {
         // delete user.rooms[this.room]
         // let room = {room: this.room, date : Date.now()}
         //user.rooms[this.room] = room
-
+        console.log("setEDitoruser", this.currentUser);
         this.$store.commit("setUser", this.currentUser);
-
-        this.$store.commit("setRoom", this.room);
+        console.log("setEDITORRoom", this.room);
+        this.$store.commit("setEDITORRoom", this.room);
 
         // You can think of your own awareness information as a key-value store.
         // We update our "user" field to propagate relevant user information.
