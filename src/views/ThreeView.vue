@@ -103,17 +103,17 @@ export default {
 
             value.forEach((v) => {
               // console.log(v);
-              let clientId = { id: v.name, name: v.name, group: "user" };
+              let clientID = { id: v.name, name: v.name, group: "user" };
               if (applyUpdateV2.user != null && v.name == app.user.name) {
-                clientId.color = "red";
+                clientID.color = "red";
               }
 
-              let exist3 = this.nodes.find((x) => x.id == clientId.id);
+              let exist3 = this.nodes.find((x) => x.id == clientID.id);
               // console.log("exist3", exist3);
-              exist3 == undefined ? this.nodes.push(clientId) : "";
+              exist3 == undefined ? this.nodes.push(clientID) : "";
 
               let activeLink = {
-                source: clientId.id,
+                source: clientID.id,
                 target: key,
                 name: "active",
                 color: "red",
@@ -148,7 +148,7 @@ export default {
                 exist2 == undefined ? this.nodes.push(roomNode2) : "";
 
                 let visitedLink = {
-                  source: clientId.id,
+                  source: clientID.id,
                   target: id,
                   name: "visited",
                   color: "blue",

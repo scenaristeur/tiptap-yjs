@@ -27,7 +27,7 @@ export default createStore({
       console.log(state.users)
       //state.users.set(state.awareness.clientID, state.user)
     },
-    // setClientID(state, id){
+    // setclientID(state, id){
     //   state.clientID = id
     // },
     setUsersInRoom(state, data){

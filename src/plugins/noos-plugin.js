@@ -59,7 +59,7 @@ const NoosPlugin = {
       console.log('changes', changes)
       // Whenever somebody updates their awareness information,
       // we log all awareness information from all users.
-      console.log(Array.from(awareness.getStates().values()))
+      console.log("USERS", Array.from(awareness.getStates().values()))
       store.commit('setUsers', Array.from(awareness.getStates().values()))
     })
 

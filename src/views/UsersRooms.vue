@@ -23,7 +23,7 @@
           {{ room[0] }}
         </van-badge>
       </button>
-      <span v-for="client in room[1]" :key="client.clientId">
+      <span v-for="client in room[1]" :key="client.clientID">
         WE HAve SEen
         <span :style="'background-color:' + client.color">{{ client.name }}</span>
         ANd (S)He HAs VIsited
@@ -139,7 +139,7 @@ export default {
     //this.users_rooms = this.rooms //Object.values(this.rooms)
 
     /*      <div v-for="room in Array.from(rooms)" :key="room[0]">
-         <div v-for="client of room[1]" :key="client.clientId">
+         <div v-for="client of room[1]" :key="client.clientID">
            {{ client.name }}
            {{ Object.keys(client.rooms) }}
            <br>
