@@ -68,8 +68,9 @@ export default {
       name: "noosphere",
       document: coreYdoc,
     });
+    console.log("roomYmap USERSROOMS", this.roomsYmap);
     this.$store.commit("setRooms", this.roomsYmap);
-    console.log("roomYmap", this.roomsYmap);
+
     // this.awareness = this.coreProvider.awareness
     // // this.coreProvider.on("awarenessUpdate", ({ states }) => {
     // //   console.log("states", states);

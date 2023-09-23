@@ -34,8 +34,9 @@ export default createStore({
       // state.users = u
       // if (state.rooms != undefined){
       try{
+        console.log("SET USERS IN ROOM", data.room, data.users)
         state.rooms.set(data.room, data.users)
-        console.log(state.rooms)
+        console.log("ROOMS3",state.rooms)
       }catch(e){
         console.log(e)
       }

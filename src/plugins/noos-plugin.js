@@ -26,7 +26,7 @@ const NoosPlugin = {
     store.commit('setUsers', users)
 
     let rooms = coreYdoc.getMap('rooms')
-    console.log("rooms", rooms)
+    console.log("rooms NOOSPLUGIN", rooms)
     store.commit('setRooms', rooms)
     //for (const [key/*, value*/] of rooms) { rooms.delete(key) }
     // let empty = new Y.Map()

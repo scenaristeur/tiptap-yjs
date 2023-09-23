@@ -57,6 +57,9 @@ export default {
       .width(480)
       .onNodeClick((node) => {
         console.log(node);
+        if (node.type == "room") {
+          this.$store.commit("setRoom", node);
+        }
       });
     console.log(this.Graph);
 
@@ -100,7 +103,7 @@ export default {
 
             value.forEach((v) => {
               // console.log(v);
-              let clientId = { id: v.clientId, name: v.name, group: "user" };
+              let clientId = { id: v.name, name: v.name, group: "user" };
               if (applyUpdateV2.user != null && v.name == app.user.name) {
                 clientId.color = "red";
               }
@@ -118,15 +121,25 @@ export default {
                 opacity: 1,
               };
 
-              let visitedExist = this.links.find(
+              let activeExist = this.links.find(
                 (x) =>
                   x.source == activeLink.source &&
                   x.target == activeLink.target &&
                   x.name == activeLink.name
               );
               //console.log("activeLink", activeLink);
-              visitedExist == undefined ? this.links.push(activeLink) : "";
+              activeExist == undefined ? this.links.push(activeLink) : "";
 
+              /* 
+              !!!!!!!!!!!!!!!!!!!
+              
+              !!!!!!!!!!!!
+              
+              suppression temporaire car trop de boucles !!!!!!!!!
+
+              !!!!!!!!!!!!!!!!!!!!!!!!
+
+              !!!!!!!!!!!!!!!!!!
               console.log(v.rooms);
               for (const [id, room] of Object.entries(v.rooms)) {
                 let roomNode2 = { id: id, name: room.room, group: "room" };
@@ -149,9 +162,11 @@ export default {
                 );
                 //console.log("visitedLink", visitedLink);
                 visitedExist == undefined
-                  ? this.links.push(visitedLink) && console.log(visitedLink)
+                  ? this.links.push(visitedLink) && console.log(visitedExist)
                   : "";
               }
+*/
+
               // for (let [id, room] of v.rooms.toArray()) {
               //   nodes.push({ id: id, name: room.room, group: "room" });
               // }
