@@ -49,19 +49,19 @@ const NoosPlugin = {
       ymapEvent.changes.keys.forEach((change, key) => {
         if (change.action === "add") {
           console.log(
-            `Property "${key}" was added. Initial value: `,
+            `USERS Property "${key}" was added. Initial value: `,
             users.get(key)
           );
         } else if (change.action === "update") {
           console.log(
-            `Property "${key}" was updated. New value: "${users.get(
+            `USERS Property "${key}" was updated. New value: "${users.get(
               key
             )}". Previous value: `,
             change.oldValue
           );
         } else if (change.action === "delete") {
           console.log(
-            `Property "${key}" was deleted. New value: undefined. Previous value: `,
+            `USERS Property "${key}" was deleted. New value: undefined. Previous value: `,
             change.oldValue
           );
         }
@@ -81,19 +81,19 @@ const NoosPlugin = {
       ymapEvent.changes.keys.forEach((change, key) => {
         if (change.action === "add") {
           console.log(
-            `Property "${key}" was added. Initial value: `,
+            `ROOM Property "${key}" was added. Initial value: `,
             rooms.get(key)
           );
         } else if (change.action === "update") {
           console.log(
-            `Property "${key}" was updated. New value: "${rooms.get(
+            `ROOM Property "${key}" was updated. New value: "${rooms.get(
               key
             )}". Previous value: `,
             change.oldValue
           );
         } else if (change.action === "delete") {
           console.log(
-            `Property "${key}" was deleted. New value: undefined. Previous value: `,
+            `ROOM Property "${key}" was deleted. New value: undefined. Previous value: `,
             change.oldValue
           );
         }
