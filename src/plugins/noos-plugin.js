@@ -49,17 +49,20 @@ const NoosPlugin = {
       ymapEvent.changes.keys.forEach((change, key) => {
         if (change.action === "add") {
           console.log(
-            `Property "${key}" was added. Initial value: "${users.get(key)}".`
+            `Property "${key}" was added. Initial value: `,
+            users.get(key)
           );
         } else if (change.action === "update") {
           console.log(
             `Property "${key}" was updated. New value: "${users.get(
               key
-            )}". Previous value: "${change.oldValue}".`
+            )}". Previous value: `,
+            change.oldValue
           );
         } else if (change.action === "delete") {
           console.log(
-            `Property "${key}" was deleted. New value: undefined. Previous value: "${change.oldValue}".`
+            `Property "${key}" was deleted. New value: undefined. Previous value: `,
+            change.oldValue
           );
         }
       });
@@ -78,17 +81,20 @@ const NoosPlugin = {
       ymapEvent.changes.keys.forEach((change, key) => {
         if (change.action === "add") {
           console.log(
-            `Property "${key}" was added. Initial value: "${rooms.get(key)}".`
+            `Property "${key}" was added. Initial value: `,
+            rooms.get(key)
           );
         } else if (change.action === "update") {
           console.log(
             `Property "${key}" was updated. New value: "${rooms.get(
               key
-            )}". Previous value: "${change.oldValue}".`
+            )}". Previous value: `,
+            change.oldValue
           );
         } else if (change.action === "delete") {
           console.log(
-            `Property "${key}" was deleted. New value: undefined. Previous value: "${change.oldValue}".`
+            `Property "${key}" was deleted. New value: undefined. Previous value: `,
+            change.oldValue
           );
         }
       });
@@ -157,78 +163,78 @@ const NoosPlugin = {
     //   }
     // });
 
-    app.config.globalProperties.$init = (key) => {
-      console.info("INIT CORE", key /*, store, router*/);
-      app.config.globalProperties.$initCoreProvider();
-      app.config.globalProperties.$initRooms();
-      app.config.globalProperties.$initUsers();
-      let user = JSON.parse(localStorage.getItem("currentUser")) || {
-        name: app.config.globalProperties.$getRandomName(),
-        color: app.config.globalProperties.$getRandomColor(),
-        rooms: [],
-      };
-      console.log("setCOREuser", user);
-      store.commit("setUser", user);
-      let room =
-        JSON.parse(localStorage.getItem("currentRoom")) ||
-        app.config.globalProperties.$getRandomRoom();
-      store.commit("setCORERoom", room);
-    };
+    //   app.config.globalProperties.$init = (key) => {
+    //     console.info("INIT CORE", key /*, store, router*/);
+    //     // app.config.globalProperties.$initCoreProvider();
+    //     // app.config.globalProperties.$initRooms();
+    //     // app.config.globalProperties.$initUsers();
+    //   //   let user = JSON.parse(localStorage.getItem("currentUser")) || {
+    //   //     name: app.config.globalProperties.$getRandomName(),
+    //   //     color: app.config.globalProperties.$getRandomColor(),
+    //   //     rooms: [],
+    //   //   };
+    //   //   console.log("setCOREuser", user);
+    //   //   store.commit("setUser", user);
+    //   //   let room =
+    //   //     JSON.parse(localStorage.getItem("currentRoom")) ||
+    //   //     app.config.globalProperties.$getRandomRoom();
+    //   //   store.commit("setCORERoom", room);
+    //   // };
 
-    app.config.globalProperties.$initCoreProvider = () => {};
-    app.config.globalProperties.$initRooms = () => {};
-    app.config.globalProperties.$initUsers = () => {};
+    //   // app.config.globalProperties.$initCoreProvider = () => {};
+    //   // app.config.globalProperties.$initRooms = () => {};
+    //   // app.config.globalProperties.$initUsers = () => {};
 
-    app.config.globalProperties.$getRandomElement = (list) => {
-      return list[Math.floor(Math.random() * list.length)];
-    };
-    app.config.globalProperties.$getRandomRoom = () => {
-      // const roomNumbers = variables.collabRooms?.trim()?.split(',') ?? [10, 11, 12]
-      const roomNumbers = [...Array(99).keys()]; // [61 /*10, 11, 12*/]
-      return app.config.globalProperties.$getRandomElement(
-        roomNumbers.map((number) => `rooms.${number}`)
-      );
-    };
-    (app.config.globalProperties.$getRandomColor = () => {
-      return app.config.globalProperties.$getRandomElement([
-        "#958DF1",
-        "#F98181",
-        "#FBBC88",
-        "#FAF594",
-        "#70CFF8",
-        "#94FADB",
-        "#B9F18D",
-      ]);
-    }),
-      (app.config.globalProperties.$getRandomName = () => {
-        return app.config.globalProperties.$getRandomElement([
-          "Lea Thompson",
-          "Cyndi Lauper",
-          "Tom Cruise",
-          "Madonna",
-          "Jerry Hall",
-          "Joan Collins",
-          "Winona Ryder",
-          "Christina Applegate",
-          "Alyssa Milano",
-          "Molly Ringwald",
-          "Ally Sheedy",
-          "Debbie Harry",
-          "Olivia Newton-John",
-          "Elton John",
-          "Michael J. Fox",
-          "Axl Rose",
-          "Emilio Estevez",
-          "Ralph Macchio",
-          "Rob Lowe",
-          "Jennifer Grey",
-          "Mickey Rourke",
-          "John Cusack",
-          "Matthew Broderick",
-          "Justine Bateman",
-          "Lisa Bonet",
-        ]);
-      });
+    //   // app.config.globalProperties.$getRandomElement = (list) => {
+    //   //   return list[Math.floor(Math.random() * list.length)];
+    //   // };
+    //   // app.config.globalProperties.$getRandomRoom = () => {
+    //   //   // const roomNumbers = variables.collabRooms?.trim()?.split(',') ?? [10, 11, 12]
+    //   //   const roomNumbers = [...Array(99).keys()]; // [61 /*10, 11, 12*/]
+    //   //   return app.config.globalProperties.$getRandomElement(
+    //   //     roomNumbers.map((number) => `rooms.${number}`)
+    //   //   );
+    //   // };
+    //   // (app.config.globalProperties.$getRandomColor = () => {
+    //   //   return app.config.globalProperties.$getRandomElement([
+    //   //     "#958DF1",
+    //   //     "#F98181",
+    //   //     "#FBBC88",
+    //   //     "#FAF594",
+    //   //     "#70CFF8",
+    //   //     "#94FADB",
+    //   //     "#B9F18D",
+    //   //   ]);
+    //   // }),
+    //   //   (app.config.globalProperties.$getRandomName = () => {
+    //   //     return app.config.globalProperties.$getRandomElement([
+    //   //       "Lea Thompson",
+    //   //       "Cyndi Lauper",
+    //   //       "Tom Cruise",
+    //   //       "Madonna",
+    //   //       "Jerry Hall",
+    //   //       "Joan Collins",
+    //   //       "Winona Ryder",
+    //   //       "Christina Applegate",
+    //   //       "Alyssa Milano",
+    //   //       "Molly Ringwald",
+    //   //       "Ally Sheedy",
+    //   //       "Debbie Harry",
+    //   //       "Olivia Newton-John",
+    //   //       "Elton John",
+    //   //       "Michael J. Fox",
+    //   //       "Axl Rose",
+    //   //       "Emilio Estevez",
+    //   //       "Ralph Macchio",
+    //   //       "Rob Lowe",
+    //   //       "Jennifer Grey",
+    //   //       "Mickey Rourke",
+    //   //       "John Cusack",
+    //   //       "Matthew Broderick",
+    //   //       "Justine Bateman",
+    //   //       "Lisa Bonet",
+    //   //     ]);
+    //   //   });
   },
 };
 

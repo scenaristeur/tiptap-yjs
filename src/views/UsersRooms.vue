@@ -113,7 +113,7 @@ export default {
   methods: {
     showRoom(r) {
       console.log(r);
-      this.$store.commit("setRoom", r);
+      this.$store.commit("setEDITORRoom", r);
     },
     // showUser(u){
     //   console.log(u.id, u.name)

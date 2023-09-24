@@ -8,7 +8,8 @@ export default createStore({
     user: null,
     rooms: null,
     users: [],
-    awareness: null
+    COREawareness: null,
+    EDITORawareness: null
   },
   getters: {},
   mutations: {
@@ -24,8 +25,8 @@ export default createStore({
     },
     setUser(state, u){
       state.user = u
-      console.log("SET USER",state.users)
-      state.users.set(state.awareness.clientID, state.user)
+      console.log("SET USER",state.user, state.users)
+      state.users.set(state.COREawareness.clientID, state.user)
     },
     setCOREUsers(state, u){
       console.log('setusers',u)
@@ -49,7 +50,12 @@ export default createStore({
 
     },
     setCOREAwareness(state, a){
-      state.awareness = a
+      state.COREawareness = a
+      console.log("COREawareness", state.COREawareness)
+    },
+    setEDITORAwareness(state, a){
+      state.EDITORawareness = a
+      console.log("EDITORawareness", state.EDITORawareness)
     },
     updateRooms(state, r){
       console.log("update rooms",r)

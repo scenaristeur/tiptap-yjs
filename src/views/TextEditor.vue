@@ -43,6 +43,7 @@ import StarterKit from "@tiptap/starter-kit";
 import { Editor, EditorContent } from "@tiptap/vue-3";
 import * as Y from "yjs";
 import ShareModal from "@/components/ShareModal";
+import { v4 as uuidv4 } from "uuid";
 
 //import { variables } from '../../../variables'
 import MenuBar from "@/components/MenuBar.vue";
@@ -71,6 +72,7 @@ export default {
         name: this.getRandomName(),
         color: this.getRandomColor(),
         rooms: {},
+        uuid: uuidv4(),
       },
       provider: null,
       editor: null,
@@ -187,6 +189,8 @@ export default {
       localStorage.setItem("currentUser", JSON.stringify(this.currentUser));
       localStorage.setItem("currentRoom", JSON.stringify(this.room));
       let r = { room: this.room, users: this.editor.storage.collaborationCursor.users };
+      console.log("users in room ", r);
+      console.log("clientID is CORE awareness, ClienId is editor awareness");
       this.$store.commit("updateRooms", r);
       //  this.$store.commit('setRoom', this.room)
     },

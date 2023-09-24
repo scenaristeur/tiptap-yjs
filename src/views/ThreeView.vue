@@ -3,17 +3,16 @@
   <hr />
 
   <!-- <div>Rooms : {{ rooms }}</div> -->
-  <hr />
+  <!-- <hr />
   {{ room }}
   <hr />
   {{ users }}
   <hr />
-  {{ user }}
+  {{ user }} -->
 </template>
 
 <script>
 import ForceGraph3D from "3d-force-graph";
-import { applyUpdateV2 } from "yjs";
 
 // import * as Y from "yjs";
 // import { HocuspocusProvider } from "@hocuspocus/provider";
@@ -56,8 +55,8 @@ export default {
       .width(480)
       .onNodeClick((node) => {
         console.log(node);
-        if (node.type == "room") {
-          this.$store.commit("setRoom", node);
+        if (node.group == "room") {
+          this.$store.commit("setEDITORRoom", node.id);
         }
       });
     console.log(this.Graph);
@@ -101,18 +100,18 @@ export default {
             //console.log(value.keys());
 
             value.forEach((v) => {
-              // console.log(v);
-              let clientID = { id: v.name, name: v.name, group: "user" };
-              if (applyUpdateV2.user != null && v.name == app.user.name) {
-                clientID.color = "red";
+              console.log("THREEuser", app.user);
+              let userNode = { id: v.uuid, name: v.name, group: "user" };
+              if (app.user == null || v.name == app.user.name) {
+                userNode.color = "red";
               }
 
-              let exist3 = this.nodes.find((x) => x.id == clientID.id);
+              let exist3 = this.nodes.find((x) => x.id == userNode.id);
               // console.log("exist3", exist3);
-              exist3 == undefined ? this.nodes.push(clientID) : "";
+              exist3 == undefined ? this.nodes.push(userNode) : "";
 
               let activeLink = {
-                source: clientID.id,
+                source: userNode.id,
                 target: key,
                 name: "active",
                 color: "red",
@@ -139,6 +138,7 @@ export default {
               !!!!!!!!!!!!!!!!!!!!!!!!
 
               !!!!!!!!!!!!!!!!!!
+              */
               console.log(v.rooms);
               for (const [id, room] of Object.entries(v.rooms)) {
                 let roomNode2 = { id: id, name: room.room, group: "room" };
@@ -147,7 +147,7 @@ export default {
                 exist2 == undefined ? this.nodes.push(roomNode2) : "";
 
                 let visitedLink = {
-                  source: clientID.id,
+                  source: userNode.id,
                   target: id,
                   name: "visited",
                   color: "blue",
@@ -164,7 +164,6 @@ export default {
                   ? this.links.push(visitedLink) && console.log(visitedExist)
                   : "";
               }
-*/
 
               // for (let [id, room] of v.rooms.toArray()) {
               //   nodes.push({ id: id, name: room.room, group: "room" });

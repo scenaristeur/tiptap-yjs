@@ -4,10 +4,8 @@
       <b-row>
         <b-col>
           <TextEditor />
-          <UsersView />
         </b-col>
         <b-col>
-          <RoomsView />
           <ThreeView />
         </b-col>
       </b-row>
@@ -18,6 +16,14 @@
         </b-col>
         <b-col>
           <UsersRooms />
+        </b-col>
+      </b-row>
+      <b-row>
+        <b-col>
+          <UsersView />
+        </b-col>
+        <b-col>
+          <RoomsView />
         </b-col>
       </b-row>
     </b-container>

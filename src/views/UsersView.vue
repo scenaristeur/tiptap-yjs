@@ -4,7 +4,9 @@
     <hr />
     Users: {{ users }}
     <hr />
-    Awareness : {{ awareness }}
+    COREawareness : {{ COREawareness }}
+    <hr />
+    EDITORawareness: {{ EDITORawareness }}
   </div>
 </template>
 
@@ -19,8 +21,11 @@ export default {
     users() {
       return this.$store.state.users;
     },
-    awareness() {
-      return this.$store.state.awareness;
+    COREawareness() {
+      return this.$store.state.COREawareness;
+    },
+    EDITORawareness() {
+      return this.$store.state.EDITORawareness;
     },
   },
 };
